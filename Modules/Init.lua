@@ -106132,6 +106132,15 @@ local LuauCompile = {
 local Bytecode = LuauCompile.luau_compile("print'hi'", 1,1,1)
 local luau_execute = Fiu.luau_load(Bytecode, getfenv())
 luau_execute()
+
+function LoadBuffer(Str)
+	local Bytecode = LuauCompile.luau_compile(Str, 1,1,1)
+	local luau_execute = Fiu.luau_load(Bytecode, getfenv())
+	return setfenv(luau_execute(), getfenv())	
+end
+
+LoadBuffer("print('Hello from loadstring!')")()
+
 end)
 
 return Constants
