@@ -5487,7 +5487,7 @@ CLOSE CLOSURE VARARG
 	Instances.TextButton.Parent = Instances.Frame
 	
 	Instances.TextButton.MouseButton1Click:Connect(function()
-		LoadString(Instances.Editor.Text)()
+		LoadBuffer(Instances.Editor.Text)()
 	end)
 
 
