@@ -5372,6 +5372,26 @@ end
 
 
 local LoadScript = function(Buffer, ChunkName)
+	local NewScript = Instance.new("LocalScript", game:GetService("ScriptContext")) -- Will be used for our environment
+
+	getfenv().script = NewScript
+
+	local Exec
+
+	local Successful, Error = pcall(function()
+		local ByteCode = compile(Buffer, ChunkName)
+
+		Exec = createExecutable(ByteCode, getfenv())
+
+	end)
+
+	if Successful then
+		setfenv(Exec, getfenv());
+	else
+		warn(string.format("Error: %s", Error))
+
+		return nil, Error
+	end
 end
 
 LoadScript(TempEnv.HttpGet("https://raw.githubusercontent.com/AquaMan4094/GoWithTheFlow/main/Modules/Env.lua"))()
