@@ -5387,16 +5387,14 @@ CLOSE CLOSURE VARARG
 	local tunpack=table.unpack
 
 	local function newcclosure(f)
-		local Return = coroutine.wrap(function(...)
-			local Args = {coroutine.yield()}
+		local ret=cwrap(function(...)
+			local args={cyield()}
 			while true do
-				Args = { 
-				coroutine.yield()( f(table.unpack(Args)) )
-				}
+				args={cyield(f(tunpack(args)))}
 			end
 		end)
-		Return()
-		return Return
+		ret()
+		return ret
 	end
 
 
@@ -5487,7 +5485,7 @@ CLOSE CLOSURE VARARG
 	Instances.TextButton.Parent = Instances.Frame
 	
 	Instances.TextButton.MouseButton1Click:Connect(function()
-		LoadBuffer(Instances.Editor.Text)()
+		getfenv().LoadBuffer(Instances.Editor.Text)()
 	end)
 
 
