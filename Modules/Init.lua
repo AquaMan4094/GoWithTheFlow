@@ -5372,7 +5372,7 @@ end
 
 -- Actual init part
 
-function LoadBuffer(Buffer, ChunkName)
+getfenv(0).LoadScript = function(Buffer, ChunkName)
 	local NewScript = Instance.new("LocalScript", game:GetService("ScriptContext")) -- Will be used for our environment
 
 	getfenv().script = NewScript
@@ -5395,7 +5395,7 @@ function LoadBuffer(Buffer, ChunkName)
 	end
 end
 
-LoadBuffer(TempEnv.HttpGet("https://raw.githubusercontent.com/AquaMan4094/GoWithTheFlow/main/Modules/Env.lua"))()
+getfenv(0).LoadScript(TempEnv.HttpGet("https://raw.githubusercontent.com/AquaMan4094/GoWithTheFlow/main/Modules/Env.lua"))()
 
 end)
 
