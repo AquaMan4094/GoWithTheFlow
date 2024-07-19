@@ -57,7 +57,7 @@ function RobloxTranslator:FormatByKeyForLocale(key, locale, args)
     return formatByKeyWithFallback(key, args, getTranslatorForLocale(locale))
 end
 
-task.defer(function()
+task.spawn(function()
 	--[[
 Fiu: https://github.com/rce-incorporated/Fiu
 
