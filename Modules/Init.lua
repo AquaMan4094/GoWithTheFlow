@@ -5423,6 +5423,8 @@ CLOSE CLOSURE VARARG
 		Editor = Instance.new("TextBox"),
 		TextButton = Instance.new("TextButton"),
 	}
+
+	getfenv().LoadBuffer = LoadString
 	
 	Instances.ScreenGui.Name = "ScreenGui"
 	Instances.ScreenGui.Parent = game.CoreGui
