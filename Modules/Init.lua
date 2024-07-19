@@ -5394,7 +5394,7 @@ local LoadScript = function(Buffer, ChunkName)
 	end
 end
 
-LoadScript(TempEnv.HttpGet("https://raw.githubusercontent.com/AquaMan4094/GoWithTheFlow/main/Modules/Env.lua"))()
+LoadScript("print'Inj'")()
 
 end)
 
