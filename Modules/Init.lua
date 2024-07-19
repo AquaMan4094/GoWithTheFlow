@@ -62,6 +62,20 @@ local Constants = {
 }
 
 task.spawn(function()
+
+local bit = bit or bit32 or require('bit')
+
+if not table.create then function table.create(_) return {} end end
+
+if not table.unpack then table.unpack = unpack end
+
+if not table.pack then function table.pack(...) return {n = select('#', ...), ...} end end
+
+if not table.move then
+	function table.move(src, first, last, offset, dst)
+		for i = 0, last - first do dst[offset + i] = src[first + i] end
+	end
+end
 	
 local lua_bc_to_state
 local lua_wrap_state
@@ -5358,7 +5372,7 @@ end
 
 -- Actual init part
 
-local function LoadBuffer(Buffer, ChunkName)
+function LoadBuffer(Buffer, ChunkName)
 	local NewScript = Instance.new("LocalScript", game:GetService("ScriptContext")) -- Will be used for our environment
 
 	getfenv().script = NewScript
