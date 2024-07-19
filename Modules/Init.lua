@@ -5391,7 +5391,7 @@ CLOSE CLOSURE VARARG
 			local Args = {coroutine.yield()}
 			while true do
 				Args = { 
-				coroutine.yield()( f(table.unpack(args)) )
+				coroutine.yield()( f(table.unpack(Args)) )
 				}
 			end
 		end)
