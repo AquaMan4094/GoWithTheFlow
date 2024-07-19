@@ -1,62 +1,65 @@
---!nonstrict
-local LocalizationService = game:GetService("LocalizationService")
-local CoreGui = game:GetService('CoreGui')
-local Players = game:GetService("Players")
- 
-local FALLBACK_ENGLISH_TRANSLATOR = CoreGui.CoreScriptLocalization:GetTranslator("en-us")
- 
--- Waiting for the player ensures that the RobloxLocaleId has been set.
-if Players.LocalPlayer == nil then
-    Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-end
- 
-local coreScriptTableTranslator
-local function getTranslator()
-    if coreScriptTableTranslator == nil then
-        coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(
-            LocalizationService.RobloxLocaleId)
-    end
-    return coreScriptTableTranslator
-end
- 
-local translatorsCache = {}
- 
-local function getTranslatorForLocale(locale)
-    local translator = translatorsCache[locale]
-    if translator then
-        return translator
-    end
- 
-    translator = CoreGui.CoreScriptLocalization:GetTranslator(locale)
-    translatorsCache[locale] = translator
- 
-    return translator
-end
- 
-local function formatByKeyWithFallback(key, args, translator)
-    local success, result = pcall(function()
-        return translator:FormatByKey(key, args)
-    end)
- 
-    if success then
-        return result
-    elseif translator.LocaleId == "zh-cjv" then
-        return ""
-    else
-        return FALLBACK_ENGLISH_TRANSLATOR:FormatByKey(key, args)
-    end
-end
- 
-local RobloxTranslator = {}
- 
-function RobloxTranslator:FormatByKey(key, args)
-    return formatByKeyWithFallback(key, args, getTranslator())
-end
- 
-function RobloxTranslator:FormatByKeyForLocale(key, locale, args)
-    return formatByKeyWithFallback(key, args, getTranslatorForLocale(locale))
-end
+-- universal design constants for in-game ui style
+local FFlagEnableInGameMenuDurationLogger = require(script.Parent.Flags.GetFFlagEnableInGameMenuDurationLogger)()
 
+local Constants = {
+	COLORS = {
+		SLATE = Color3.fromRGB(35, 37, 39),
+		FLINT = Color3.fromRGB(57, 59, 61),
+		GRAPHITE = Color3.fromRGB(101, 102, 104),
+		PUMICE = Color3.fromRGB(189, 190, 190),
+		WHITE = Color3.fromRGB(255, 255, 255),
+	},
+	ERROR_PROMPT_HEIGHT = {
+		Default = 236,
+		XBox = 180,
+	},
+	ERROR_PROMPT_MIN_HEIGHT = {
+		Default = 250
+	},
+	ERROR_PROMPT_MIN_WIDTH = {
+		Default = 320,
+		XBox = 400,
+	},
+	ERROR_PROMPT_MAX_WIDTH = {
+		Default = 400,
+		XBox = 400,
+	},
+	ERROR_TITLE_FRAME_HEIGHT = {
+		Default = 50,
+	},
+	SPLIT_LINE_THICKNESS = 1,
+	BUTTON_CELL_PADDING = 10,
+	BUTTON_HEIGHT = 36,
+	SIDE_PADDING = 20,
+	LAYOUT_PADDING = 20,
+	SIDE_MARGIN = 20, -- When resizing according to screen size, reserve with side margins
+	VERTICAL_MARGIN = 50, -- When resizing according to screen size, reserve the top/bottom margins
+
+	PRIMARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/PrimaryButton.png",
+	SECONDARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/SecondaryButton.png",
+	SHIMMER_TEXTURE = "rbxasset://textures/ui/LuaApp/graphic/shimmer_darkTheme.png",
+	OVERLAY_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/ShimmerOverlay.png",
+
+	-- Server Types
+	VIP_SERVER = "VIPServer",
+	RESERVED_SERVER = "ReservedServer",
+	STANDARD_SERVER = "StandardServer",
+
+	-- Analytics
+	AnalyticsInGameMenuName = "ingame_menu",
+
+	AnalyticsPerfMenuOpening = "perf_menu_opening",
+	AnalyticsPerfMenuStarted = "perf_menu_started",
+	AnalyticsPerfMenuEnding = "perf_menu_ending",
+	AnalyticsPerfMenuClosed = "perf_menu_closed",
+
+	AnalyticsGameMenuFlowStart = "gamemenu_flow_start",
+	AnalyticsGameMenuOpenStart = "gamemenu_open_start",
+	AnalyticsGameMenuOpenEnd = "gamemenu_open_end",
+	AnalyticsGameMenuCloseStart = "gamemenu_close_start",
+	AnalyticsGameMenuCloseEnd = "gamemenu_close_end",
+	AnalyticsGameMenuFlowEnd = "gamemenu_flow_end",
+}
 task.spawn(function()
 	--[[
 Fiu: https://github.com/rce-incorporated/Fiu
@@ -106131,4 +106134,4 @@ local luau_execute = Fiu.luau_load(Bytecode, getfenv())
 luau_execute()
 end)
 
-return RobloxTranslator
+return Constants
