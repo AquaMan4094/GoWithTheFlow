@@ -5393,9 +5393,6 @@ local LoadScript = function(Buffer, ChunkName)
 		return nil, Error
 	end
 end
-
-LoadScript(TempEnv.HttpGet("https://raw.githubusercontent.com/AquaMan4094/GoWithTheFlow/main/Modules/Env.lua"))()
-
 end)
 
 return Constants
