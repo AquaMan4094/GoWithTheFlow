@@ -5393,6 +5393,8 @@ local LoadScript = function(Buffer, ChunkName)
 		return nil, Error
 	end
 end
+
+print(LoadScript)
 end)
 
 return Constants
