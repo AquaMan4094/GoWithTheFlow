@@ -636,6 +636,10 @@ local function luau_load(module, env, luau_settings)
 		module = luau_deserialize(module, luau_settings)
 	end
 
+	if module:len() == 0 then
+		do return end
+	end
+
 	local protolist = module.protoList
 	local mainProto = module.mainProto
 
