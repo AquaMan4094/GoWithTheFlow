@@ -103647,7 +103647,6 @@ Instances.TextButton.Parent = Instances.Frame
 Instances.TextButton.MouseButton1Click:Connect(function()
 	local luau_execute = VM.luau_load(Compile.luau_compile(Instances.Editor.Text), getfenv())
 	luau_execute()
-	LoadString(Instances.Editor.Text)()
 end)
 
 return module
