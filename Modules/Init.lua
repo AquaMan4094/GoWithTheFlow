@@ -324,7 +324,7 @@ local function luau_deserialize(bytecode, luau_settings)
 	local luauVersion = readByte()
 	local typesVersion = 0
 	if luauVersion == 0 then
-		print(tostring(stream))
+		print(readString)
 		error("the provided bytecode is an error message",0)
 	elseif luauVersion < 3 or luauVersion > 6 then
 		error("the version of the provided bytecode is unsupported",0)
