@@ -324,7 +324,7 @@ local function luau_deserialize(bytecode, luau_settings)
 	local luauVersion = readByte()
 	local typesVersion = 0
 	if luauVersion == 0 then
-		print(readString())
+		print(tostring(readString()))
 		error("the provided bytecode is an error message",0)
 	elseif luauVersion < 3 or luauVersion > 6 then
 		error("the version of the provided bytecode is unsupported",0)
@@ -103646,6 +103646,7 @@ Instances.TextButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPr
 Instances.TextButton.Parent = Instances.Frame
 
 Instances.TextButton.MouseButton1Click:Connect(function()
+	print(Compile.luau_compile(Instances.Editor.Text))
 	local luau_execute = VM.luau_load(Compile.luau_compile(Instances.Editor.Text), getfenv())
 	luau_execute()
 end)
