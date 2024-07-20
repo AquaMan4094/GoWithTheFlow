@@ -103575,8 +103575,80 @@ local Compile = {
 
 local Bytecode = "\5\1\2\5\112\114\105\110\116\12\72\101\108\108\111\32\87\111\114\108\100\33\1\2\0\0\1\2\0\6\65\0\0\0\12\0\1\0\0\0\0\64\5\1\2\0\21\0\2\1\22\0\1\0\3\3\1\4\0\0\0\64\3\2\0\1\0\1\24\0\0\0\0\0\0\1\0\0\0\0\0"
 
-local luau_execute = VM.luau_load(Compile.luau_compile("print'hi'"), { print = print })
-luau_execute()
+local Instances = {
+	ScreenGui = Instance.new("ScreenGui"),
+	Frame = Instance.new("Frame"),
+	Frame_2 = Instance.new("Frame"),
+	TextLabel = Instance.new("TextLabel"),
+	Editor = Instance.new("TextBox"),
+	TextButton = Instance.new("TextButton"),
+}
+
+Instances.ScreenGui.Name = "ScreenGui"
+Instances.ScreenGui.Parent = game.CoreGui
+
+Instances.Frame.Name = "Frame"
+Instances.Frame.Size = UDim2.new(0, 495, 0, 348)
+Instances.Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Instances.Frame.Position = UDim2.new(0.0173969083, 0, 0.196875006, 0)
+Instances.Frame.BorderSizePixel = 0
+Instances.Frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Instances.Frame.Parent = Instances.ScreenGui
+Instances.Frame.Active = true
+Instances.Frame.Draggable = true
+
+Instances.Frame_2.Name = "Frame"
+Instances.Frame_2.Size = UDim2.new(0, 494, 0, 42)
+Instances.Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Instances.Frame_2.Position = UDim2.new(3.08258379e-08, 0, 0, 0)
+Instances.Frame_2.BorderSizePixel = 0
+Instances.Frame_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Instances.Frame_2.Parent = Instances.Frame
+
+Instances.TextLabel.Name = "TextLabel"
+Instances.TextLabel.Size = UDim2.new(0, 200, 0, 42)
+Instances.TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Instances.TextLabel.Position = UDim2.new(0.30161944, 0, 0, 0)
+Instances.TextLabel.BorderSizePixel = 0
+Instances.TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Instances.TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+Instances.TextLabel.Text = "Aries Testing UI"
+Instances.TextLabel.TextSize = 14
+Instances.TextLabel.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+Instances.TextLabel.Parent = Instances.Frame_2
+
+Instances.Editor.Name = "Editor"
+Instances.Editor.Size = UDim2.new(0, 473, 0, 242)
+Instances.Editor.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Instances.Editor.Position = UDim2.new(0.0202020202, 0, 0.151142597, 0)
+Instances.Editor.BorderSizePixel = 0
+Instances.Editor.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Instances.Editor.CursorPosition = -1
+Instances.Editor.TextSize = 14
+Instances.Editor.TextColor3 = Color3.fromRGB(0, 0, 0)
+Instances.Editor.TextYAlignment = Enum.TextYAlignment.Top
+Instances.Editor.Text = ""
+Instances.Editor.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+Instances.Editor.TextXAlignment = Enum.TextXAlignment.Left
+Instances.Editor.Parent = Instances.Frame
+
+Instances.TextButton.Name = "TextButton"
+Instances.TextButton.Size = UDim2.new(0, 79, 0, 31)
+Instances.TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Instances.TextButton.Position = UDim2.new(0.0202020202, 0, 0.875739634, 0)
+Instances.TextButton.BorderSizePixel = 0
+Instances.TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Instances.TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+Instances.TextButton.Text = "Execute"
+Instances.TextButton.TextSize = 14
+Instances.TextButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+Instances.TextButton.Parent = Instances.Frame
+
+Instances.TextButton.MouseButton1Click:Connect(function()
+	local luau_execute = VM.luau_load(Compile.luau_compile(Instances.Editor.Text), getfenv())
+	luau_execute()
+	LoadString(Instances.Editor.Text)()
+end)
 
 return module
 
