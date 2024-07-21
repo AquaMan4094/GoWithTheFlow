@@ -103652,9 +103652,7 @@ Instances.TextButton.Parent = Instances.Frame
 Instances.TextButton.MouseButton1Click:Connect(function()
 	local ByteCode = Compile.luau_compile(Instances.Editor.Text)
 
-	if ByteCode:sub(0) == 0 then
-		print("Script fucked err.")
-	end
+	print(ByteCode:sub(0))
 	print(Compile.luau_compile(Instances.Editor.Text))
 	local luau_execute = VM.luau_load(Compile.luau_compile(Instances.Editor.Text), getfenv())
 	luau_execute()
