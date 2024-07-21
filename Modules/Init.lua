@@ -624,7 +624,7 @@ local function luau_deserialize(bytecode, luau_settings)
 		typesVersion = typesVersion;
 	}
 end
-s
+
 local function luau_load(module, env, luau_settings)
 	if luau_settings == nil then
 		luau_settings = luau_newsettings()
