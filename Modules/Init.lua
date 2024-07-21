@@ -624,7 +624,7 @@ local function luau_deserialize(bytecode, luau_settings)
 		typesVersion = typesVersion;
 	}
 end
-
+s
 local function luau_load(module, env, luau_settings)
 	if luau_settings == nil then
 		luau_settings = luau_newsettings()
@@ -636,7 +636,7 @@ local function luau_load(module, env, luau_settings)
 		module = luau_deserialize(module, luau_settings)
 	end
 
-	if module:len() == 0 then
+	if module.protoList or module.mainProto == nil then
 		do return end
 	end
 
