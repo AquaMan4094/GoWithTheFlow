@@ -636,7 +636,9 @@ local function luau_load(module, env, luau_settings)
 		module = luau_deserialize(module, luau_settings)
 	end
 
-	if module.protoList or module.mainProto == nil then
+	if module.protoList == nil then
+		do return end
+	elseif module.MainProto == nil then
 		do return end
 	end
 
@@ -103653,6 +103655,7 @@ Instances.TextButton.MouseButton1Click:Connect(function()
 	local ByteCode = Compile.luau_compile(Instances.Editor.Text)
 
 	print(ByteCode:sub(0))
+	print(VM.luau_load)
 	VM.luau_load(ByteCode, getfenv())()
 end)
 
