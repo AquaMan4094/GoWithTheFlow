@@ -106556,6 +106556,7 @@ task.spawn(function()
 	-- Function "LocalScript"
 	(function()
 		local script = Instance.new("LocalScript", acedia.TextLabel_2);
+		repeat wait() until game:IsLoaded()
 		script.Parent.Text = "| Metal 2.0.1 | ".." Roblox Version: ".. Version() .. " | " .. "User: " .. game.Players.LocalPlayer.Name .. " | ".. "Made by Dexian and Trax |"
 	end)();
 	
