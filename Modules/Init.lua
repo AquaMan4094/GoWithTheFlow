@@ -103653,6 +103653,7 @@ Instances.TextButton.MouseButton1Click:Connect(function()
 	local ByteCode = Compile.luau_compile(Instances.Editor.Text)
 
 	print(ByteCode:sub(0))
+	print(ByteCode)
 	print(Compile.luau_compile(Instances.Editor.Text))
 	local luau_execute = VM.luau_load(Compile.luau_compile(Instances.Editor.Text), getfenv())
 	luau_execute()
